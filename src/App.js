@@ -1,12 +1,12 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import CatTable from './components/catTable';
+import MediaTable from './components/mediaTable';
 
 const App = () => {
   return (
-   <CatTable/>
+    <MediaTable/>
   );
-}
+};
 
 export default App;
