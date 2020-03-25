@@ -1,11 +1,21 @@
 import React from 'react';
-// import logo from './logo.svg';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
-import MediaTable from './components/mediaTable';
+import Nav from './components/Nav';
+import Home from './views/Home';
+import Profile from './views/Profile';
+import Single from './views/Single';
 
 const App = () => {
   return (
-    <MediaTable/>
+    <Router basename={process.env.PUBLIC_URL}>
+      <Nav/>
+      <Switch>
+        <Route path = "/" exact component={Home}/>
+        <Route path = "/profile" component={Profile}/>
+        <Route path = "/single/:id" component={Single}/>
+      </Switch>
+    </Router>
   );
 };
 
