@@ -6,16 +6,17 @@ import {withRouter} from 'react-router-dom';
 
 const RegisterForm = ({history}) => {
   const doRegister = async () => {
-    const free = await checkUserAvailable(inputs.username);
-    if (free.available) {
-
-    // const reg = await register(inputs);
-    // console.log(reg);
-    // const user = await login(inputs);
-    // console.log(user);
-    // history.push('/home');
-    } else {
-      console.log('Not free!');
+    try {
+      await checkUserAvailable(inputs.username);
+      await register(inputs);
+      // kirjaudu automaagisesti
+      const user = await login(inputs);
+      console.log(user);
+      // siirry etusivulle
+      history.push('/home');
+    } catch (e) {
+      console.log(e.message);
+      // TODO: näytä virhe
     }
   };
 

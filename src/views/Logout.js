@@ -1,13 +1,10 @@
 import React from 'react';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
+import {Redirect} from 'react-router-dom';
 
 const Logout = () => {
+  localStorage.clear();
   return (
-    <>
-      <LoginForm/>
-      <RegisterForm/>
-    </>
+    <Redirect to='/home'/>
   );
 };
 

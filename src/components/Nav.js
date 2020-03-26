@@ -1,7 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {checkToken} from '../hooks/ApiHooks';
+import {withRouter} from 'react-router-dom';
 
-const Nav = () => {
+const Nav = ({history}) => {
+  useEffect(()=>{
+    const checkUser = async () => {
+      if (localStorage.getItem('token') !==null) {
+        try {
+          const userdata= await checkToken(localStorage.getItem('token'));
+          console.log(userdata);
+        } catch (e) {
+          history.push('/');
+        }
+      };
+    };
+    checkUser();
+  }, [history]);
+
   return (
     <nav>
       <ul>
@@ -22,4 +39,8 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+Nav.propTypes = {
+  history: PropTypes.object,
+};
+
+export default withRouter(Nav);

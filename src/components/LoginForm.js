@@ -2,11 +2,22 @@ import React from 'react';
 import useLoginForm from '../hooks/LoginHooks';
 import PropTypes from 'prop-types';
 import {login} from '../hooks/ApiHooks';
+import {withRouter} from 'react-router-dom';
 
-const LoginForm = (props) => {
-  const doLogin = ()=> {
-    login(inputs);
+const LoginForm = ({history}) => {
+  const doLogin = async ()=> {
+    try {
+      // kirjaudu automaagisesti
+      const user = await login(inputs);
+      console.log(user);
+      // siirry etusivulle
+      history.push('/home');
+    } catch (e) {
+      console.log(e.message);
+      // TODO: näytä virhe
+    }
   };
+
   const {inputs, handleInputChange, handleSubmit} = useLoginForm(doLogin);
   return (
     <>
@@ -32,6 +43,8 @@ const LoginForm = (props) => {
   );
 };
 
-LoginForm.propTypes = {};
+LoginForm.propTypes = {
+  history: PropTypes.object,
+};
 
-export default LoginForm;
+export default withRouter(LoginForm);
