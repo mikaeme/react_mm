@@ -19,4 +19,5 @@ const Single = ({match}) => {
 Single.propTypes = {
   match: PropTypes.object,
 };
+
 export default Single;

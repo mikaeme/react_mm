@@ -6,7 +6,13 @@ const Nav = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
+        </li>
+        <li>
+          <Link to="/">Login</Link>
+        </li>
+        <li>
+          <Link to="/logout">Logout</Link>
         </li>
         <li>
           <Link to="/profile">Profile</Link>
