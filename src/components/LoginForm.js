@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import useLoginForm from '../hooks/LoginHooks';
 import PropTypes from 'prop-types';
 import {login} from '../hooks/ApiHooks';
 import {withRouter} from 'react-router-dom';
+import {MediaContext} from '../contexts/MediaContext';
 
 const LoginForm = ({history}) => {
+  const [user, setUser] = useContext(MediaContext);
   const doLogin = async ()=> {
     try {
       // kirjaudu automaagisesti
-      const user = await login(inputs);
-      console.log(user);
+      const userdata = await login(inputs);
+      setUser(userdata);
+      console.log(userdata.user);
+      localStorage.setItem('token', userdata.token);
       // siirry etusivulle
       history.push('/home');
     } catch (e) {
