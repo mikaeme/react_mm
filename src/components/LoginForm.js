@@ -1,49 +1,72 @@
 import React, {useContext} from 'react';
-import useLoginForm from '../hooks/LoginHooks';
 import PropTypes from 'prop-types';
+import useLoginForm from '../hooks/LoginHooks';
 import {login} from '../hooks/ApiHooks';
 import {withRouter} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
+import {Button, TextField, Grid} from '@material-ui/core';
 
 const LoginForm = ({history}) => {
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(MediaContext);
-  const doLogin = async ()=> {
+  const doLogin = async () => {
     try {
-      // kirjaudu automaagisesti
       const userdata = await login(inputs);
-      setUser(userdata);
-      console.log(userdata.user);
+      setUser(userdata.user);
+      // console.log(user);
+      // tallenna token
       localStorage.setItem('token', userdata.token);
       // siirry etusivulle
       history.push('/home');
     } catch (e) {
       console.log(e.message);
-      // TODO: näytä virhe
+      // TODO: näytä vihe
     }
   };
-
   const {inputs, handleInputChange, handleSubmit} = useLoginForm(doLogin);
   return (
-    <>
-      <h1>LOGIN</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange ={handleInputChange}
-          value={inputs.username}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          onChange ={handleInputChange}
-          value={inputs.password}
-        />
-        <button type="submit">Login</button>
-      </form>
-    </>
+    <Grid container>
+      <Grid item xs={12}>
+        <h1>Login</h1>
+      </Grid>
+      <Grid item xs={12}>
+        <form onSubmit={handleSubmit}>
+          <Grid container>
+            <Grid container item>
+              <TextField
+                fullWidth
+                type="text"
+                name="username"
+                label="Username"
+                onChange={handleInputChange}
+                value={inputs.username}
+              />
+            </Grid>
+
+            <Grid container item>
+              <TextField
+                fullWidth
+                type="password"
+                name="password"
+                label="Password"
+                onChange={handleInputChange}
+                value={inputs.password}
+              />
+            </Grid>
+
+            <Grid container item>
+              <Button
+                fullWidth
+                color="primary"
+                type="submit"
+                variant="contained">
+                Login
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
+    </Grid>
   );
 };
 

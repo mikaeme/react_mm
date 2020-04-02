@@ -8,19 +8,25 @@ import Single from './views/Single';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import {MediaProvider} from './contexts/MediaContext';
+import {Container} from '@material-ui/core';
 
 const App = () => {
   return (
+    // eslint-disable-next-line no-undef
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Nav/>
-        <Switch>
-          <Route path = "/" exact component={Login}/>
-          <Route path = "/logout" exact component={Logout}/>
-          <Route path = "/home" exact component={Home}/>
-          <Route path = "/profile" component={Profile}/>
-          <Route path = "/single/:id" component={Single}/>
-        </Switch>
+        <Container maxWidth="md">
+          <Nav/>
+          <main>
+            <Switch>
+              <Route path="/" exact component={Login}/>
+              <Route path="/home" component={Home}/>
+              <Route path="/profile" component={Profile}/>
+              <Route path="/single/:id" component={Single}/>
+              <Route path="/logout" component={Logout}/>
+            </Switch>
+          </main>
+        </Container>
       </MediaProvider>
     </Router>
   );
